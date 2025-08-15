@@ -14,10 +14,13 @@ import { ConnectionStatus } from '@/components/phase1/connection-status'
 import Link from 'next/link'
 
 export default function Dashboard() {
-  const [currentTime, setCurrentTime] = useState(new Date());
+  const [currentTime, setCurrentTime] = useState<Date | null>(null);
   const [threatLevel, setThreatLevel] = useState('normal');
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+    setCurrentTime(new Date());
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
@@ -40,7 +43,7 @@ export default function Dashboard() {
             Security Operations Center
           </h1>
           <p className="text-muted-foreground mt-1">
-            System Status: {currentTime.toLocaleString()} • Monitoring 30 doors across 3 floors
+            System Status: {mounted && currentTime ? currentTime.toLocaleString() : 'Loading...'} • Monitoring 30 doors across 3 floors
           </p>
         </div>
         <div className="flex items-center gap-3">

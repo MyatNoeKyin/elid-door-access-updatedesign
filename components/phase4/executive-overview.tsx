@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from 'react';
+import { useClientDate } from '@/hooks/use-client-date';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -133,6 +134,7 @@ const COLORS = ['#10B981', '#F59E0B', '#EF4444', '#3B82F6', '#8B5CF6'];
 export function ExecutiveOverview() {
   const [timeRange, setTimeRange] = useState('6months');
   const [selectedDepartment, setSelectedDepartment] = useState<string | null>(null);
+  const { mounted, dateTimeString } = useClientDate();
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -159,7 +161,7 @@ export function ExecutiveOverview() {
         <div>
           <h2 className="text-3xl font-bold tracking-tight">Executive Dashboard</h2>
           <p className="text-muted-foreground">
-            High-level security and operational metrics • Last updated: {new Date().toLocaleString()}
+            High-level security and operational metrics • Last updated: {mounted ? dateTimeString : 'Loading...'}
           </p>
         </div>
         <div className="flex items-center gap-2">
