@@ -4,7 +4,7 @@ import LoginForm from "@/components/login-form"
 export default function Home() {
   // In a real implementation, you would check for authentication here
   // and redirect to dashboard if already logged in
-  const isAuthenticated = false
+  const isAuthenticated = true // Temporarily set to true for demo
 
   if (isAuthenticated) {
     redirect("/dashboard")

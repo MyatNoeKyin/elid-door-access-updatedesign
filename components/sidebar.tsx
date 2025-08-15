@@ -4,6 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import { useState } from "react"
@@ -32,6 +33,7 @@ import {
   UserCheck,
   Edit,
   Layers,
+  Sparkles,
 } from "lucide-react"
 
 const navigation = [
@@ -39,6 +41,23 @@ const navigation = [
     name: "Dashboard",
     href: "/dashboard",
     icon: LayoutDashboard,
+  },
+  {
+    name: "Security Center",
+    href: "/dashboard/security-dashboard",
+    icon: Shield,
+    badge: "NEW",
+  },
+  {
+    name: "Real-Time Monitoring",
+    href: "/dashboard/monitoring/real-time",
+    icon: Monitor,
+  },
+  {
+    name: "Showcase",
+    href: "/dashboard/showcase",
+    icon: Sparkles,
+    badge: "DEMO",
   },
   {
     name: "User Management",
@@ -234,9 +253,14 @@ export default function Sidebar() {
                 )}
                 asChild
               >
-                <Link href={item.href}>
+                <Link href={item.href} className="w-full flex items-center">
                   <item.icon className="mr-2 h-4 w-4" />
-                  {item.name}
+                  <span className="flex-1">{item.name}</span>
+                  {item.badge && (
+                    <Badge variant="default" className="ml-auto">
+                      {item.badge}
+                    </Badge>
+                  )}
                 </Link>
               </Button>
             )

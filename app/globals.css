@@ -43,6 +43,13 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+    
+    /* Security-specific colors */
+    --security-critical: 0 84.2% 60.2%;
+    --security-warning: 38 92% 50%;
+    --security-normal: 142 76% 36%;
+    --security-info: 217 91% 60%;
+    --security-unknown: 0 0% 45.1%;
   }
   .dark {
     --background: 0 0% 3.9%;
@@ -77,6 +84,19 @@
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+    
+    /* Dark mode security colors */
+    --security-critical: 0 84.2% 60.2%;
+    --security-warning: 38 92% 50%;
+    --security-normal: 142 76% 36%;
+    --security-info: 217 91% 60%;
+    --security-unknown: 0 0% 45.1%;
+    
+    /* Dark mode optimized surfaces */
+    --dark-surface-elevated: 222 47% 11%;
+    --dark-surface-base: 224 71% 4%;
+    --dark-border-subtle: 215 28% 17%;
+    --dark-text-primary: 210 40% 98%;
   }
 }
 
@@ -87,4 +107,65 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Security-specific animations */
+@keyframes security-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes security-alert {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes security-slide-in {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.security-pulse {
+  animation: security-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.security-alert {
+  animation: security-alert 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.security-slide-in {
+  animation: security-slide-in 0.3s ease-out;
+}
+
+/* Dark mode optimizations for security dashboard */
+.dark .security-gradient {
+  background: linear-gradient(135deg, 
+    hsl(var(--dark-surface-base)) 0%, 
+    hsl(var(--dark-surface-elevated)) 100%
+  );
+}
+
+/* Emergency mode styles */
+.emergency-mode {
+  --destructive: 0 84.2% 50%;
+  --destructive-foreground: 0 0% 100%;
+}
+
+.emergency-mode .emergency-border {
+  border-color: hsl(var(--destructive));
+  box-shadow: 0 0 0 1px hsl(var(--destructive) / 0.5);
 }
